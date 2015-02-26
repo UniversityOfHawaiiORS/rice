@@ -605,6 +605,9 @@ public class IdentityManagementRoleDocument extends IdentityManagementTypeAttrib
         if (getDelegationMembers() != null) {
             for (RoleDocumentDelegationMember delegationMember : getDelegationMembers()) {
                 delegationMember.setDocumentNumber(getDocumentNumber());
+		// KC-427 Need to set roleId before calling addDelegationMemberToDelegation
+                // because I now use this value in this method to fix the JIRA listed.
+                delegationMember.getRoleBo().setId(roleId);
                 addDelegationMemberToDelegation(delegationMember);
             }
             for (RoleDocumentDelegation delegation : getDelegations()) {

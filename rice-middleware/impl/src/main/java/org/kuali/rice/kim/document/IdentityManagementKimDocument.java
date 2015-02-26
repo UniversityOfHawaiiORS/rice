@@ -63,21 +63,29 @@ public class IdentityManagementKimDocument extends TransactionalDocumentBase {
 	protected void addDelegationMemberToDelegation(RoleDocumentDelegationMember delegationMember){
 		RoleDocumentDelegation delegation;
 		if(DelegationType.PRIMARY.getCode().equals(delegationMember.getDelegationTypeCode())){
-			delegation = getPrimaryDelegation();
+		//delegation = getPrimaryDelegation();
+		//RRG KC-427 Added roleid argument
+		delegation = getPrimaryDelegation(delegationMember.getRoleBo().getId());
 		} else{
-			delegation = getSecondaryDelegation();
+		//delegation = getSecondaryDelegation();
+		//RRG KC-427 Added roleid argument
+		delegation = getSecondaryDelegation(delegationMember.getRoleBo().getId());
 		}
 		delegationMember.setDelegationId(delegation.getDelegationId());
-    	delegation.getMembers().add(delegationMember);
+		delegation.getMembers().add(delegationMember);
 		delegation.setRoleId(delegationMember.getRoleBo().getId());
 		delegation.setKimTypeId(delegationMember.getRoleBo().getKimTypeId());
 
 	}
 
-	protected RoleDocumentDelegation getPrimaryDelegation(){
+    // RRG KC-427 added argument roleId since a delegation is unique if the roleid is different
+    protected RoleDocumentDelegation getPrimaryDelegation(String roleId)
+    {
 		RoleDocumentDelegation primaryDelegation = null;
-		for(RoleDocumentDelegation delegation: getDelegations()){
-			if(delegation.isDelegationPrimary()) {
+        for (RoleDocumentDelegation delegation : getDelegations()) {
+            //if (delegation.isDelegationPrimary()) {
+            // RRG KC-427 Added compare of roleid to create new delegation if roleid does not match any existing.
+            if (delegation.isDelegationPrimary() && delegation.getRoleId().equals(roleId)) {
 				primaryDelegation = delegation;
             }
 		}
@@ -96,10 +104,14 @@ public class IdentityManagementKimDocument extends TransactionalDocumentBase {
         return incrementer.nextStringValue();
 	}
 	
-	protected RoleDocumentDelegation getSecondaryDelegation(){
+    // RRG KC-427 added argument roleId since a delegation is unique if the roleid is different
+    protected RoleDocumentDelegation getSecondaryDelegation(String roleId)
+    {
 		RoleDocumentDelegation secondaryDelegation = null;
-		for(RoleDocumentDelegation delegation: getDelegations()){
-			if(delegation.isDelegationSecondary()) {
+        for (RoleDocumentDelegation delegation : getDelegations()) {
+            //if (delegation.isDelegationSecondary()) {
+            // RRG KC-427 Added compare of roleid to create new delegation if roleid does not match any existing.
+            if (delegation.isDelegationSecondary() && delegation.getRoleId().equals(roleId)) {
 				secondaryDelegation = delegation;
             }
 		}
@@ -129,7 +141,7 @@ public class IdentityManagementKimDocument extends TransactionalDocumentBase {
 			List<RoleDocumentDelegationMember> delegationMembers) {
 		this.delegationMembers = delegationMembers;
 	}
-
+	
     public String getKimAttributeDefnId(KimAttributeField definition){
    		return definition.getId();
     }
