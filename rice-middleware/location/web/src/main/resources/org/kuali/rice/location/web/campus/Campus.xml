@@ -61,18 +61,22 @@
   <bean id="Campus-code" parent="Campus-code-parentBean"/>
 
   <bean id="Campus-code-parentBean" abstract="true" parent="AttributeDefinition">
-    <property name="forceUppercase" value="true"/>
+  <!-- UH mod: dont force uppercase since are campus codes are lower case -->
+    <property name="forceUppercase" value="false"/>
     <property name="shortLabel" value="Campus Code"/>
-    <property name="maxLength" value="2"/>
+ 	<!-- UH mod: change length to 10 -->
+    <property name="maxLength" value="10"/>
     <property name="validationPattern">
       <bean parent="AlphaNumericValidationPattern"/>
     </property>
     <property name="required" value="true"/>
     <property name="control">
-      <bean parent="TextControlDefinition" p:size="2"/>
+	<!-- UH mod: change length to 10 -->
+     <bean parent="TextControlDefinition" p:size="10"/>
     </property>
     <property name="controlField">
-      <bean parent="Uif-TextControl" p:size="2"/>
+ 	<!-- UH mod: change length to 10 -->
+      <bean parent="Uif-TextControl" p:size="10"/>
     </property>      
     <property name="summary" value="Campus Code"/>
     <property name="name" value="code"/>
