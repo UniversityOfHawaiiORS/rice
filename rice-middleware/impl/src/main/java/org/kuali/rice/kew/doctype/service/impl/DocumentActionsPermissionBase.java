@@ -228,6 +228,13 @@ public class DocumentActionsPermissionBase {
         boolean foundAtLeastOnePermission = false;
         boolean authorizedByPermission = false;
         boolean principalIsInitiator = StringUtils.equals(initiatorPrincipalId, principalId);
+        // UH KC-652 BEGIN Initiator receives incident report after attempting to recall proposal
+        //          rbl we want to authorize the initiator of PDs created in KC versions prior to 5.1.1
+        boolean isPD = false;
+        if(documentType != null) {
+            isPD = StringUtils.equals(documentType.getName(), "ProposalDevelopmentDocument");
+        }
+        //UH KC-652 END
 
         // loop over permission details, only one of them needs to be authorized
         for (Map<String, String> permissionDetails : permissionDetailList) {
@@ -243,6 +250,12 @@ public class DocumentActionsPermissionBase {
             }
         }
         if (foundAtLeastOnePermission) {
+            // UH KC-652 BEGIN Initiator receives incident report after attempting to recall proposal
+            //           rbl we want to authorize the initiator of PDs created in KC versions prior to 5.1.1
+            if(isPD && principalIsInitiator) {
+                return true;
+            }
+            //UH KC-652 END
             return false;
         }
         // alternative could be to only authorize initiator if the permission is omitted
