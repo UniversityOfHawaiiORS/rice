@@ -153,10 +153,17 @@ public class MessageProcessingJob extends ConcurrentJob<MessageDelivery> impleme
      */
     @Override
     protected Collection<Collection<MessageDelivery>> groupWorkItems(Collection<MessageDelivery> workItems, ProcessingResult<MessageDelivery> result) {
-        Collection<Collection<MessageDelivery>> groupedWorkItems = new ArrayList<Collection<MessageDelivery>>(workItems.size());
+        // UH mod: null check to avoid npe
+        int size = 0;
+        if (workItems != null) {
+            size = workItems.size();
+        }
+        Collection<Collection<MessageDelivery>> groupedWorkItems = new ArrayList<Collection<MessageDelivery>>(size);
 
         Map<String, Collection<MessageDelivery>> bulkWorkUnits = new HashMap<String, Collection<MessageDelivery>>();
-        for (MessageDelivery messageDelivery: workItems) {
+        if (workItems != null) {
+            // end UH mod (except for closing bracket)
+            for (MessageDelivery messageDelivery : workItems) {
             
             MessageDeliverer deliverer = registry.getDeliverer(messageDelivery);
             if (deliverer == null) {
@@ -181,7 +188,7 @@ public class MessageProcessingJob extends ConcurrentJob<MessageDelivery> impleme
                 groupedWorkItems.add(l);
             }
         }
-
+       }
         return groupedWorkItems;
     }
     
