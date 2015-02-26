@@ -198,6 +198,8 @@ public final class FieldUtils {
 				field.setUniversalIdAttributeName(kualiUserControl.getUniversalIdAttributeName());
 				field.setUserIdAttributeName(kualiUserControl.getUserIdAttributeName());
 				field.setPersonNameAttributeName(kualiUserControl.getPersonNameAttributeName());
+                // KC-742 Delegation Maintenance lookups not working for Delegatee and Delegator during edit/add
+                field.setReferencesToRefresh(kualiUserControl.getUniversalIdAttributeName());
 			}
 
 			if (control.isWorkflowWorkgroup()) {
