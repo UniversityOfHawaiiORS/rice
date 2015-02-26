@@ -86,7 +86,9 @@ public class AttachmentServiceImpl implements AttachmentService {
         }
 
         String uniqueFileNameGuid = UUID.randomUUID().toString();
-        String fullPathUniqueFileName = getDocumentDirectory(parent.getObjectId()) + File.separator + uniqueFileNameGuid;
+	// RRG KC-435 Unable to open attachments in some Institutional Proposals (user gets Incident Report page)   
+        //String fullPathUniqueFileName = getDocumentDirectory(parent.getObjectId()) + File.separator + uniqueFileNameGuid;
+        String fullPathUniqueFileName = getDocumentDirectory(uniqueFileNameGuid) + File.separator + uniqueFileNameGuid;
 
         writeInputStreamToFileStorage(fileContents, fullPathUniqueFileName);
 
@@ -198,8 +200,12 @@ public class AttachmentServiceImpl implements AttachmentService {
     @Override
 	public InputStream retrieveAttachmentContents(Attachment attachment) throws IOException {
         String parentDirectory = "";
-        if(attachment.getNote()!=null && attachment.getNote().getRemoteObjectIdentifier() != null) {
-            parentDirectory = attachment.getNote().getRemoteObjectIdentifier();
+	// RRG changed for KC-435
+        //if(attachment.getNote()!=null && attachment.getNote().getRemoteObjectIdentifier() != null) {
+        //    parentDirectory = attachment.getNote().getRemoteObjectIdentifier();
+        //}
+	if (attachment.getNote() != null && attachment.getAttachmentIdentifier() != null) {
+            parentDirectory = attachment.getAttachmentIdentifier();
         }
 
         return new BufferedInputStream(new FileInputStream(getDocumentDirectory(parentDirectory) + File.separator + attachment.getAttachmentIdentifier()));
