@@ -87,24 +87,26 @@ public class DocumentSearchCriteriaProcessorKEWAdapter implements DocumentSearch
     private static final String ROUTE_NODE_NAME = "routeNodeName";
     private static final String ROUTE_NODE_LOGIC = "routeNodeLogic";
 
+    // KC-715 Make document id the default focus on document search
     private static final String[] BASIC_FIELD_NAMES = {
+            "documentId",
             "documentTypeName",
             "initiatorPrincipalName",
-            "documentId",
             APPLICATION_DOCUMENT_STATUS,
             "dateCreated",
             DOCUMENT_ATTRIBUTE_FIELD_MARKER,
             "saveName"
     };
 
+    // KC-715 Make document id the default focus on document search
     private static final String[] ADVANCED_FIELD_NAMES = {
+            "documentId",
             "documentTypeName",
             "initiatorPrincipalName",
             "approverPrincipalName",
             "viewerPrincipalName",
             "groupViewerName",
             "groupViewerId",
-            "documentId",
             "applicationDocumentId",
             "statusCode",
             APPLICATION_DOCUMENT_STATUS,
