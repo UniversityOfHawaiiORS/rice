@@ -154,13 +154,12 @@ public class ActionListEmailServiceImpl implements ActionListEmailService {
 
     protected EmailTo getEmailTo(Person user) {
         String address = user.getEmailAddressUnmasked();
-        if (!isProduction()) {
-            LOG.info("If this were production, email would be sent to "+ user.getEmailAddressUnmasked());
-            address = CoreFrameworkServiceLocator.getParameterService().getParameterValueAsString(
-                KewApiConstants.KEW_NAMESPACE,
-                KRADConstants.DetailTypes.ACTION_LIST_DETAIL_TYPE,
-                KewApiConstants.ACTIONLIST_EMAIL_TEST_ADDRESS);
+	// UH reroute email enhancement 
+        if(devRerouteEmails()) {
+           LOG.info("If this were production, email would be sent to " + user.getEmailAddressUnmasked());
+           address = getRerouteEmailAddress();
         }
+	// END UH reroute email enhancement
         return new EmailTo(address);
     }
 
@@ -815,4 +814,25 @@ public class ActionListEmailServiceImpl implements ActionListEmailService {
         return ConfigContext.getCurrentContextConfig().getProperty(KRADConstants.WORKFLOW_URL_KEY)
                 + "/" + "Preferences.do";
     }
+
+    // Begin UH reroute email enhancement
+    private boolean devRerouteEmails() {
+        boolean reroute = true; // Default to re-route so we don't accidentally send emails
+
+        try {
+            // Use same param as workflow emails so we don't have to worry about two settings.
+            reroute = CoreFrameworkServiceLocator.getParameterService().getParameterValueAsBoolean("KR-WKFLW", 
+                "ActionList", "REROUTE_EMAIL_NOTIFICATION_TO_TEST_ADDRESS");
+        } catch (Exception e) {
+            LOG.warn("Email reroute email Notifications parameter not configured, defaulting to rerouting for saftey.");
+        }
+        
+        return reroute;
+    }
+    
+    private String getRerouteEmailAddress() {
+        return CoreFrameworkServiceLocator.getParameterService().getParameterValueAsString("KR-WKFLW", 
+                "ActionList", "EMAIL_NOTIFICATION_TEST_ADDRESS");
+    }
+    // END UH reroute email enhancement
 }
