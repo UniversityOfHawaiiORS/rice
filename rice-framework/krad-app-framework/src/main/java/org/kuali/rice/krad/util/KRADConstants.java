@@ -38,7 +38,8 @@ public final class KRADConstants {
     public static final String DEFAULT_ENCODING = "UTF-8";
 
     // special user used in the post-processor
-    public static final String SYSTEM_USER = "kr";
+    // UH mod: kr username was renamed to krsys because UH LDAP has a kr user.
+    public static final String SYSTEM_USER = "krsys";
 
     public static final String KRAD_URL_KEY = "krad.url";
     public static final String KRAD_INQUIRY_URL_KEY = "krad.inquiry.url";

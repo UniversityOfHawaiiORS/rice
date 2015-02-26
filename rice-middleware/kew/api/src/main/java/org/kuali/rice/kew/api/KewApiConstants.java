@@ -952,7 +952,8 @@ public final class KewApiConstants {
     }
 
     // special user used when no other user is available
-    public static final String SYSTEM_USER = "kr";
+    // UH mod: kr username was renamed to krsys because UH LDAP has a kr user.
+    public static final String SYSTEM_USER = "krsys";
     public static final String ENABLE_KEN_NOTIFICATION = "rice.kew.enableKENNotification";
     
 	public static final String ROLEROUTE_QUALIFIER_RESOLVER_ELEMENT = "qualifierResolver";
