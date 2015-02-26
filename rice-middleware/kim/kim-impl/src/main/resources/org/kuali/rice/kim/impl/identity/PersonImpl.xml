@@ -183,10 +183,12 @@
   </bean>
 
   <bean id="PersonImpl-principalId" parent="PersonImpl-principalId-parentBean"/>
-  <bean id="PersonImpl-principalId-parentBean" parent="KimBaseBeans-principalId" abstract="true"/>
+  <!-- UH mod: add label and short label -->
+  <bean id="PersonImpl-principalId-parentBean" parent="KimBaseBeans-principalId" abstract="true" p:label="UH Number" p:shortLabel="UH Number"/>
 
   <bean id="PersonImpl-principalName" parent="PersonImpl-principalName-parentBean"/>
-  <bean id="PersonImpl-principalName-parentBean" parent="KimBaseBeans-principalName" abstract="true"/>
+   <!-- UH mod: add label and short label -->
+  <bean id="PersonImpl-principalName-parentBean" parent="KimBaseBeans-principalName" abstract="true" p:label="UH Username" p:shortLabel="UH Username"/>
 
   <bean id="PersonImpl-active" parent="PersonImpl-active-parentBean"/>
 
@@ -258,37 +260,26 @@
         <property name="sortAscending" value="true"/>
       </bean>
     </property>
+    <!-- UH mod: removed search fields -->
     <property name="lookupFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="principalName"/>
         <bean parent="FieldDefinition" p:attributeName="principalId"/>
-        <bean parent="FieldDefinition" p:attributeName="entityId"/>
         <bean parent="FieldDefinition" p:attributeName="firstName"/>
-        <bean parent="FieldDefinition" p:attributeName="middleName"/>
         <bean parent="FieldDefinition" p:attributeName="lastName"/>
-        <bean parent="FieldDefinition" p:attributeName="emailAddress"/>
-        <bean parent="FieldDefinition" p:attributeName="phoneNumber"/>
-        <bean parent="FieldDefinition" p:attributeName="employeeId"/>
-        <bean parent="FieldDefinition" p:attributeName="campusCode"/>
-        <bean parent="FieldDefinition" p:attributeName="primaryDepartmentCode"/>
-        <bean parent="FieldDefinition" p:attributeName="employeeStatusCode"/>
-        <bean parent="FieldDefinition" p:attributeName="employeeTypeCode"/>
         <bean parent="FieldDefinition" p:attributeName="active" p:defaultValue="Y"/>
-        <bean parent="FieldDefinition" p:attributeName="lookupRoleNamespaceCode"/>
-        <bean parent="FieldDefinition" p:attributeName="lookupRoleName"/>
       </list>
     </property>
     <property name="resultFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="principalId"/>
         <bean parent="FieldDefinition" p:attributeName="principalName" p:noInquiry="true"/>
-        <bean parent="FieldDefinition" p:attributeName="name" p:noInquiry="true"/>
-        <bean parent="FieldDefinition" p:attributeName="entityId" p:noInquiry="true"/>
-        <bean parent="FieldDefinition" p:attributeName="campusCode"/>
-        <bean parent="FieldDefinition" p:attributeName="primaryDepartmentCode"/>
-        <bean parent="FieldDefinition" p:attributeName="employeeId"/>
+        <bean parent="FieldDefinition" p:attributeName="firstName"/>
+        <bean parent="FieldDefinition" p:attributeName="lastName"/>
+        <bean parent="FieldDefinition" p:attributeName="active" p:defaultValue="Y"/>
       </list>
     </property>
+    <!-- end UH mod -->
   </bean>
 
   <!-- KRAD Conversion -->
@@ -329,37 +320,26 @@
     <property name="dataObjectClassName" value="org.kuali.rice.kim.impl.identity.PersonImpl"/>
     <property name="viewHelperServiceClass" value="org.kuali.rice.kim.impl.identity.PersonLookupableImpl" />
     <property name="defaultSortAttributeNames" value="principalName"/>
+    <!-- UH mod: removed search fields -->
     <property name="criteriaFields">
       <list>
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="principalName"/>
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="principalId"/>
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="entityId"/>
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="firstName"/>
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="middleName"/>
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="lastName"/>
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="emailAddress"/>
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="phoneNumber"/>
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="employeeId"/>
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="campusCode"/>
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="primaryDepartmentCode"/>
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="employeeStatusCode"/>
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="employeeTypeCode"/>
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="active" p:defaultValue="Y"/>
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="lookupRoleNamespaceCode"/>
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="lookupRoleName"/>
       </list>
     </property>
     <property name="resultFields">
       <list>
-        <bean parent="Uif-DataField" p:propertyName="principalId"/>
-        <bean parent="Uif-DataField" p:propertyName="principalName"/>
-        <bean parent="Uif-DataField" p:propertyName="name"/>
-        <bean parent="Uif-DataField" p:propertyName="entityId"/>
-        <bean parent="Uif-DataField" p:propertyName="campusCode"/>
-        <bean parent="Uif-DataField" p:propertyName="primaryDepartmentCode"/>
-        <bean parent="Uif-DataField" p:propertyName="employeeId"/>
+        <bean parent="Uif-InputField" p:propertyName="principalId"/>
+        <bean parent="Uif-InputField" p:propertyName="principalName"/>
+        <bean parent="Uif-InputField" p:propertyName="firstName"/>
+        <bean parent="Uif-InputField" p:propertyName="LastName"/>
+        <bean parent="Uif-InputField" p:propertyName="active"/>
       </list>
     </property>
+    <!-- end UH mod -->
   </bean>
 
 </beans>
