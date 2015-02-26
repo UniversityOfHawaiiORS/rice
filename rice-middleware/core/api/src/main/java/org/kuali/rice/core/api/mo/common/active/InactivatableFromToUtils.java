@@ -41,4 +41,33 @@ public final class InactivatableFromToUtils {
                 (activeToDate == null || activeAsOfDate.getMillis() < activeToDate.getMillis());
     }
 
+    
+    //UH KC-623 BEGIN - rbl added code to support display of future Roles on IdentityManagementPerson page
+    public static boolean isFuture(DateTime activeFromDate, DateTime activeToDate, DateTime activeAsOfDate)
+    {
+        long asOfDate = System.currentTimeMillis();
+        if (activeAsOfDate != null) {
+            asOfDate = activeAsOfDate.getMillis();
+        }
+
+        return computeFuture(activeFromDate, activeToDate, asOfDate);
+
+    }
+
+    private static boolean computeFuture(DateTime activeFromDate, DateTime activeToDate, long asOfDate)
+    {
+        boolean isFutureActive = false;
+        if ((activeFromDate != null) && (activeFromDate.getMillis() > asOfDate)) {
+            if (activeToDate == null) {
+                isFutureActive = true;
+            }
+            else if ((activeToDate != null) && (activeToDate.getMillis() > asOfDate)) {
+                isFutureActive = true;
+            }
+        }
+
+        return isFutureActive;
+    }
+
+    //UH KC-623 END
 }

@@ -370,6 +370,12 @@ public class IdentityManagementPersonDocumentAction extends IdentityManagementDo
             roleMember.setMemberId(personDocumentForm.getPrincipalId());
             roleMember.setMemberTypeCode(MemberType.PRINCIPAL.getCode());
             roleMember.setRoleId(newRole.getRoleId());
+	    //UH KC-623 BEGIN - rbl added code to preserve the active_to and active_from dates entered via the "add role" form element, for simple roles only (i.e - roles without qualifiers)
+            if (newRole.getDefinitions().isEmpty()) {
+                roleMember.setActiveFromDate(newRole.getNewRolePrncpl().getActiveFromDate());
+                roleMember.setActiveToDate(newRole.getNewRolePrncpl().getActiveToDate());
+            }
+            //UH KC-623 END
             newRole.setNewRolePrncpl(roleMember);
          if(!validateRoleAssignment(personDocumentForm.getPersonDocument(), newRole)){
           return mapping.findForward(RiceConstants.MAPPING_BASIC);

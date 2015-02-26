@@ -67,4 +67,20 @@ public abstract class ActiveFromToBo extends DataObjectBase {
     public void setActiveToDateValue(Timestamp activeToDateValue) {
         this.activeToDateValue = activeToDateValue;
     }
+
+    //UH KC-623 BEGIN - When a role is added with an effective date in the future,
+    //                  the role does not show in the profile until the effective date.
+    //   added code to support display of future Roles on IdentityManagementPerson page
+    public boolean isFuture(Timestamp activeAsOfDate) {
+        return InactivatableFromToUtils.isFuture(getActiveFromDate(), getActiveToDate(), new DateTime(activeAsOfDate.getTime()));
+    }
+
+    public boolean isFuture(DateTime activeAsOfDate) {
+        return InactivatableFromToUtils.isFuture(getActiveFromDate(), getActiveToDate(), activeAsOfDate);
+    }
+
+    public boolean isFuture() {
+        return InactivatableFromToUtils.isFuture(getActiveFromDate(), getActiveToDate(), null);
+    }
+    //UH KC-623 END
 }
