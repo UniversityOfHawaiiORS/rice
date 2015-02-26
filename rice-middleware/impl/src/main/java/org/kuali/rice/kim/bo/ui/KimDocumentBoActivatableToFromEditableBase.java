@@ -94,4 +94,15 @@ public class KimDocumentBoActivatableToFromEditableBase  extends KimDocumentBoBa
 		this.activeToDate = activeToDate;
 	}
 
+	//UH KC-618 BEGIN - rbl fix for incident report thrown when trying to add a delegation for a role with a member who has active_from_date or active_to_date set
+        public void setActiveFromDateValue(Timestamp activeFromDateValue)
+        {
+            this.activeFromDate = activeFromDateValue;
+        }
+
+        public void setActiveToDateValue(Timestamp activeToDateValue)
+        {
+            this.activeToDate = activeToDateValue;
+        }
+        //UH KC-618 END
 }

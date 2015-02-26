@@ -49,6 +49,7 @@ import org.kuali.rice.coreservice.framework.CoreFrameworkServiceLocator;
 import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.KimConstants.KimGroupMemberTypes;
+import org.kuali.rice.kim.api.common.delegate.DelegateMember;
 import org.kuali.rice.kim.api.group.Group;
 import org.kuali.rice.kim.api.group.GroupContract;
 import org.kuali.rice.kim.api.group.GroupMember;
@@ -156,6 +157,16 @@ import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.util.KRADPropertyConstants;
 import org.kuali.rice.krad.util.KRADUtils;
 import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.rice.core.impl.cache.DistributedCacheManagerDecorator;
+import org.kuali.rice.kim.api.KimApiConstants;
+
+import org.apache.commons.beanutils.Converter;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.beanutils.ConvertUtilsBean;
+import org.apache.commons.beanutils.PropertyUtilsBean;
+import org.apache.commons.beanutils.ConversionException;
+import org.apache.commons.beanutils.converters.SqlTimestampConverter;
 
 /**
  * This is a description of what this class does - shyu don't forget to fill this in.
@@ -449,7 +460,8 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 				pndMember.setActiveToDate(member.getActiveToDateValue());
 				pndMember.setActive(member.isActive( getDateTimeService().getCurrentTimestamp() ));
 				pndMember.setRoleBo( RoleBo.from(roleImpl) );
-				if(pndMember.isActive()){
+				//UH KC-433 disable the isActive check in-order to show all delegation members both active (current)
+				//if(pndMember.isActive()){
                     pndMember.setMemberId(member.getMemberId());
                     pndMember.setDelegationMemberId(member.getDelegationMemberId());
                     pndMember.setMemberTypeCode(member.getType().getCode());
@@ -468,7 +480,8 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 					pndMember.setEdit(true);
 					pndMember.setQualifiers(loadDelegationMemberQualifiers(identityManagementPersonDocument, pndMember.getAttributesHelper().getDefinitions(), member.getAttributeDetails()));
 					pndMembers.add(pndMember);
-				}
+				//}
+				// KC-433 END
 			}
 		}
 		return pndMembers;
@@ -576,7 +589,8 @@ public class UiDocumentServiceImpl implements UiDocumentService {
         if(ObjectUtils.isNotNull(roleMembers)){
             // for each membership get the role and add it, if not already added
             for (RoleMemberBo member : roleMembers) {
-				if(member.isActive() && !roleIds.contains(member.getRoleId())) {
+		                //UH KC-623 BEGIN - rbl added code (isFuture check) to support display of future Roles on IdentityManagementPerson page
+				if((member.isActive() || member.isFuture()) && !roleIds.contains(member.getRoleId())) {
 					loadDocRoles(docRoles, roleIds, member, roleMembers);
 				}
             }
@@ -741,9 +755,10 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 		List <KimDocumentRoleMember> docRoleMembers = new ArrayList <KimDocumentRoleMember>();
 		if(ObjectUtils.isNotNull(roleMembers)){
 	    	for (RoleMemberBo rolePrincipal : roleMembers) {
-	    		if (rolePrincipal.isActive(getDateTimeService().getCurrentTimestamp()) && MemberType.PRINCIPAL.equals(
-                        rolePrincipal.getType()) &&
-	    				StringUtils.equals(rolePrincipal.getMemberId(), principalId)) {
+			//UH KC-623 BEGIN - rbl added code (isFuture check) to support display of future Roles on IdentityManagementPerson page
+	    		if ((rolePrincipal.isActive(getDateTimeService().getCurrentTimestamp()) || rolePrincipal.isFuture())
+			    && MemberType.PRINCIPAL.equals(rolePrincipal.getType())
+			    && StringUtils.equals(rolePrincipal.getMemberId(), principalId)) {
 	        		KimDocumentRoleMember docRolePrncpl = new KimDocumentRoleMember();
 	        		docRolePrncpl.setMemberId(rolePrincipal.getMemberId());
 	        		docRolePrncpl.setRoleMemberId(rolePrincipal.getId());
@@ -1488,6 +1503,8 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 		DelegateTypeBo newKimDelegation;
 		DelegateTypeBo origDelegationImplTemp = null;
 		List<DelegateMemberBo> origMembers;
+		// KC-631 Person documents stuck enroute trying to edit if delegation exists
+                List<DelegateMemberBo> allOrigMembers = new ArrayList<DelegateMemberBo>();
 		boolean activatingInactive = false;
 		String newDelegationIdAssigned = "";
 		if(CollectionUtils.isNotEmpty(identityManagementPersonDocument.getDelegations())){
@@ -1506,12 +1523,22 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 						}
 						if(origDelegationImpl.getDelegationId()!=null && StringUtils.equals(origDelegationImpl.getDelegationId(), newKimDelegation.getDelegationId())){
 							newKimDelegation.setVersionNumber(origDelegationImpl.getVersionNumber());
+							// KC-631 Person documents stuck enroute trying to edit if delegation exists
+                                                        newKimDelegation.setObjectId(origDelegationImpl.getObjectId());
 							origDelegationImplTemp = origDelegationImpl;
 						}
+						// KC-631 Person documents stuck enroute trying to edit if delegation exists
+                                                for (DelegateMemberBo delegateMemberBo : origDelegationImpl.getMembers()) {
+                                                     allOrigMembers.add(delegateMemberBo);
+					        }
 					}
 				}
 				origMembers = (origDelegationImplTemp==null || origDelegationImplTemp.getMembers()==null)?
 									new ArrayList<DelegateMemberBo>():origDelegationImplTemp.getMembers();
+				// KC-631 Person documents stuck enroute trying to edit if delegation exists
+                                //        was passing null as "allOrigMembers" which was throwing null exception
+                                newKimDelegation.setMembers(getDelegationMembers(roleDocumentDelegation.getMembers(), origMembers, allOrigMembers,
+                                activatingInactive, newDelegationIdAssigned));
 				newKimDelegation.setMembers(getDelegationMembers(roleDocumentDelegation.getMembers(), origMembers, null, activatingInactive, newDelegationIdAssigned));
                 newKimDelegation.setVersionNumber(null);
 				kimDelegations.add(newKimDelegation);
@@ -2128,7 +2155,8 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 				pndMember.setActiveFromDate(member.getActiveFromDateValue());
 				pndMember.setActiveToDate(member.getActiveToDateValue());
 				pndMember.setActive(member.isActive(getDateTimeService().getCurrentTimestamp()));
-				if(pndMember.isActive()){
+				//KC-433 we want to display both active and inactive (future and past) delegation members
+				//if(pndMember.isActive()){
 					//KimCommonUtilsInternal.copyProperties(pndMember, member);
                     pndMember.setDelegationId(member.getDelegationId());
                     pndMember.setDelegationMemberId(member.getDelegationMemberId());
@@ -2147,7 +2175,8 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 					pndMember.setEdit(true);
 					pndMember.setQualifiers(loadDelegationMemberQualifiers(identityManagementRoleDocument, member.getAttributeDetails()));
 					pndMembers.add(pndMember);
-				}
+				//}
+				// KC-433 END
 			}
 		}
 		return pndMembers;
@@ -2998,11 +3027,24 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 		Object roleMemberObject;
 		RoleMemberBo roleMemberBo;
 		if(CollectionUtils.isNotEmpty(matchingRoleMembersTemp)){
+			//UH KC-618 BEGIN - rbl fix for incident report thrown when trying to add a delegation for a role with a member who has active_from_date or active_to_date set
+                        ConvertUtilsBean convertUtilsBean = new ConvertUtilsBean();
+                        convertUtilsBean.register(new SqlTimestampConverter(null), Timestamp.class);
+                        BeanUtilsBean beanUtilsBean = new BeanUtilsBean(convertUtilsBean, new PropertyUtilsBean());
+                        //UH KC-618 END
 			for(RoleMember roleMember: matchingRoleMembersTemp){
 				roleMemberBo = getRoleMember(roleMember.getId());
 				roleMemberObject = getMember(roleMemberBo.getType(), roleMemberBo.getMemberId());
 				matchingRoleMember = new KimDocumentRoleMember();
-                KimDocumentRoleMember.copyProperties(matchingRoleMember, roleMemberBo);
+				//UH KC-618 BEGIN - rbl fix for incident report thrown when trying to add a delegation for a role with a member who has active_from_date or active_to_date set
+                                try {
+                                    KimDocumentRoleMember.copyProperties(matchingRoleMember, roleMemberBo);
+                                }
+                                catch (Exception ex) {
+                                    throw new RuntimeException("Failed to copy from source object: " + roleMemberBo.getClass()
+                                    + " to target object: " + matchingRoleMember.getClass(), ex);
+                                }
+                                //UH KC-618 END
                 matchingRoleMember.setMemberId(roleMemberBo.getMemberId());
                 matchingRoleMember.setRoleMemberId(roleMemberBo.getId());
 				matchingRoleMember.setMemberName(getMemberName(roleMemberBo.getType(), roleMemberObject));
@@ -3010,6 +3052,10 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 				matchingRoleMember.setQualifiers(getQualifiers(roleMemberBo.getAttributeDetails()));
 				matchingRoleMembers.add(matchingRoleMember);
 			}
+			//UH KC-618 BEGIN - rbl fix for incident report thrown when trying to add a delegation for a role with a member who has active_from_date or active_to_date set
+                        //clean up/remove our custom converter for copy properties 
+                        convertUtilsBean.deregister(Timestamp.class);
+                        //UH KC-618 END
 		}
 		return matchingRoleMembers;
     }
