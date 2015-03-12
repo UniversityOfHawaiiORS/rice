@@ -150,6 +150,12 @@
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-ws-security</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.ws.security</groupId>
+          <artifactId>wss4j</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.cxf</groupId>
