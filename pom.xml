@@ -28,7 +28,7 @@
   <packaging>pom</packaging>
   <name>Rice</name>
   <inceptionYear>2005</inceptionYear>
-  <version>2.5.2.1</version>
+  <version>2.5.3.0-kckualico</version>
   <description>
     The Kuali Rice effort provides an enterprise class middleware suite of integrated products that allows
     both Kuali and non-Kuali applications
@@ -39,7 +39,7 @@
     quality business
     applications.
   </description>
-  <url>http://${kuali.site.hostname}/rice/${project.version}</url>
+  <url>https://github.com/rSmart/kuali_rice</url>
 
   <ciManagement>
     <url>http://ci.rice.kuali.org</url>
@@ -273,6 +273,8 @@
       -javaagent:${spring-instrument.jar}
     </spring-instrument-javaagent>
 
+    <jdk.source.version>1.6</jdk.source.version>
+    <jdk.target.version>1.6</jdk.target.version>
   </properties>
 
   <profiles>
@@ -931,6 +933,7 @@
                         When we go back to the javax.servlet artifact, we'll need to remove this
                       -->
                       <exclude>javax.servlet:jstl</exclude>
+                      <exclude>org.apache.ws.security:wss4j</exclude>
                     </excludes>
 
                     <includes>
@@ -946,6 +949,7 @@
                       <include>org.slf4j:*:${slf4j.version}</include>
                       <include>net.sf.ehcache:*:${ehcache.version}:jar:runtime</include>
                       <include>com.sun.xml.bind:jaxb-impl:${jaxb-impl.version}</include>
+                      <include>org.apache.ws.security:wss4j:${wss4j.version}</include>
                     </includes>
                   </bannedDependencies>
                 </rules>
@@ -957,12 +961,15 @@
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <configuration>
+            <source>${jdk.source.version}</source>
+            <target>${jdk.target.version}</target>
             <!-- impl module is huge and requires at least 768m to compile -->
             <fork>true</fork>
             <meminitial>256</meminitial>
-            <maxmem>1024</maxmem>
+            <maxmem>2048m</maxmem>
               <source>1.7</source>
               <target>1.7</target>
+            <permgensize>256m</permgensize>
           </configuration>
         </plugin>
         <plugin>
@@ -1515,6 +1522,17 @@
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
+    </repository>
+    <repository>
+      <id>rsmart-dev</id>
+      <name>rsmart-dev</name>
+      <url>https://nexus.rsmart.com/nexus/content/groups/public/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
     </repository>
   </repositories>
 
@@ -2521,15 +2539,29 @@
   </dependencyManagement>
 
   <issueManagement>
-    <system>JIRA</system>
-    <url>http://jira.kuali.org/</url>
+    <system>github</system>
+    <url>https://github.com/rSmart/kuali_rice/issues</url>
   </issueManagement>
 
   <scm>
-    <developerConnection>scm:git:git@github.com:kuali/rice.git</developerConnection>
-    <connection>scm:git:git@github.com:kuali/rice.git</connection>
-    <url>https://github.com/kuali/rice/tree/${project.scm.tag}</url>
-    <tag>rice-2.5.2.1</tag>
+    <connection>scm:git:git://github.com/rSmart/kuali_rice.git</connection>
+    <developerConnection>scm:git:git@github.com:rSmart/kuali_rice.git</developerConnection>
+    <url>https://github.com/rSmart/kuali_rice</url>
   </scm>
+
+  <distributionManagement>
+    <downloadUrl>https://github.com/rSmart/kuali_rice</downloadUrl>
+    <snapshotRepository>
+       <id>rsmart.snapshot.repo</id>
+       <name>rsmart snapshot repository</name>
+       <url>s3://rsmart-dev/artifacts/maven/snapshot</url>
+       <layout>default</layout>
+    </snapshotRepository>
+    <repository>
+      <id>rsmart.release.repo</id>
+      <name>rsmart release repository</name>
+      <url>s3://rsmart-dev/artifacts/maven/release</url>
+    </repository>
+  </distributionManagement>
 
 </project>
