@@ -2674,7 +2674,7 @@
     <connection>${scm.connection}</connection>
     <developerConnection>${scm.developerConnection}</developerConnection>
     <url>${scm.url}</url>
-    <tag>rice-2.5.3.1504.1-kckualico</tag>
+    <tag>rice-2.5.3.1504.1-uh</tag>
   </scm>
 
   <distributionManagement>
