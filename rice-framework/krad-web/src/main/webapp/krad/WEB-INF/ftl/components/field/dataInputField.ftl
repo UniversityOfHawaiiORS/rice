@@ -61,8 +61,10 @@
                         <#-- display actual field value -->
                         <@spring.bindEscaped path="KualiForm.${field.bindingInfo.bindingPath}"
                                              htmlEscape=field.escapeHtmlInPropertyValue/>
-                        ${(spring.status.value?default(""))}
-
+                        <#-- KC-944 Finalized PD documents fail to open, error in logs -->
+                        <#-- ${(spring.status.value?default(""))} -->                     
+                        <#if spring.status.value??><#if spring.status.value?is_sequence>${spring.status.value?join(", ")}<#else>${spring.status.value}</#if><#else></#if>
+                        <#-- KC-944 End -->
                         <#-- add display suffix value if set -->
                         <#if field.readOnlyDisplaySuffix?has_content>
                              *-* ${field.readOnlyDisplaySuffix}
@@ -113,8 +115,10 @@
                            <#-- display actual field value -->
                            <@spring.bindEscaped path="KualiForm.${field.bindingInfo.bindingPath}"
                                                 htmlEscape=field.escapeHtmlInPropertyValue/>
-                           ${(spring.status.value?default(""))}
-
+                           <#-- KC-944 Finalized PD documents fail to open, error in logs -->
+                           <#-- ${(spring.status.value?default(""))} -->
+                           <#if spring.status.value??><#if spring.status.value?is_sequence>${spring.status.value?join(", ")}<#else>${spring.status.value}</#if><#else></#if>
+						   <#-- KC-944 End -->
                            <#-- add display suffix value if set -->
                            <#if field.readOnlyDisplaySuffix?has_content>
                                 *-* ${field.readOnlyDisplaySuffix}
@@ -227,7 +231,10 @@
 	        <#list field.propertyNamesForAdditionalDisplay as infoPropertyPath>
 	            <span id="${field.id}_info_${krad.cleanPath(infoPropertyPath)}" class="uif-informationalMessage">
 	                <@spring.bind path="KualiForm.${infoPropertyPath}"/>
-	                 ${spring.status.value?default("")}
+	                 <#-- KC-944 Finalized PD documents fail to open, error in logs -->
+	                 <#-- ${spring.status.value?default("")} -->
+	                 <#if spring.status.value??><#if spring.status.value?is_sequence>${spring.status.value?join(", ")}<#else>${spring.status.value}</#if><#else></#if>
+	                 <#-- KC-944 End -->
 	            </span>
 	        </#list>
         </#if>
