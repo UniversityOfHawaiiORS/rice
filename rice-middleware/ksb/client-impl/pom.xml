@@ -20,11 +20,11 @@
   <parent>
     <artifactId>rice-ksb</artifactId>
     <groupId>org.kuali.rice</groupId>
-    <version>2.5.3.1504.1-kckualico</version>
+    <version>2.5.3.1505.13-kckualico</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>rice-ksb-client-impl</artifactId>
-  <version>2.5.3.1504.1-kckualico</version>
+  <version>2.5.3.1505.13-kckualico</version>
   <name>Rice KSB Client Implementation</name>
   <dependencies>
     <dependency>
@@ -131,6 +131,10 @@
       <artifactId>cxf-rt-frontend-jaxws</artifactId>
     </dependency>
     <dependency>
+      <groupId>${asm.group.string}</groupId>
+      <artifactId>asm</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-frontend-jaxrs</artifactId>
     </dependency>
@@ -181,7 +185,7 @@
     </dependency>
     <!-- ASM as an explicit dependency, see KULRICE-6353 -->
     <dependency>
-      <groupId>asm</groupId>
+      <groupId>${asm.group.string}</groupId>
       <artifactId>asm</artifactId>
       <scope>runtime</scope>
     </dependency>
