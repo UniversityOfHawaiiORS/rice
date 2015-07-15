@@ -62,6 +62,26 @@
   * bsmith83 on Thu, 21 May 2015 14:02:20 -0700 [View Commit](../../commit/a1d7afbea02065f38be54258a90df7a53bb1b71c)
 * catching Error in specific cases to support java 7 and java 8
   * Travis Schneberger on Fri, 22 May 2015 07:06:07 -0400 [View Commit](../../commit/5728ac97399dfa23f247c90224943d94d71787ca)
+*  FE issue - People Flow KRMS - Descriptors need to feed to PD Proposal Action>Route Log>Future Routing Requests details
+  * I think the issue here is that in Future actions, while people flow members' and delegates' names appear correctly in the PD Route Log, there is no field in PD route log that displays what Routing Agenda rule or which People Flow is associated with the required approval.
+  * Unit Administrators, Deans Office reviewers and OSP need to be able to easily identify the unit to which the proposal will route (or has routed, or is currently at the stop for).
+  * Possibly the easiest way for this to be done is to display the People Flow name, e.g. "151000 Biology All Proposals." in the Route Log, so users could see which approval group the stop is for.
+  * This would be consistent with how this routing information is displayed in Coeus Proposal Routing view.
+  * Gayathri on Wed, 27 May 2015 11:37:48 -0700 [View Commit](../../commit/54dd6c0b258c911979d183be1246dbc0a4ed880c)
+*  enable quartz jobs to be monitored & extra statistics for ehcache with java melody
+  * Travis Schneberger on Fri, 29 May 2015 13:53:09 -0400 [View Commit](../../commit/822c2544d158f12875feaea2469eb68801b5cbb0)
+*  Modified parent annotation for action request to display people flow name.
+  * For the KRMS Agenda based routing approval stops, PPL Flow Member "Annotation" is still blank and does not display any PPL Flow info to user when they open the Future routing.
+
+  * Only the delegates, visible only once the show is expanded, have the PPL flow name included.
+
+  * PPL Flow Member Annotation field in Routing Log needs to show PPL Flow Name. User needs to be able to see PPL Flow names for each Pending Approval stop without expanding to display delegates.
+  * Gayathri on Fri, 29 May 2015 18:49:07 -0700 [View Commit](../../commit/e7cecb382163b727ae0e20ad0a3e6237f7fa7d83)
+*  allow the jpa vendor adapter to be configured such that a java melody vendor adapter can be used if desired.
+  * Travis Schneeberger on Thu, 4 Jun 2015 15:53:25 -0400 [View Commit](../../commit/fd4f8b5c74610eb468748fae569c80fd0dfc9291)
+*  Reject Enhancement
+  * Control the reject action with permissions.
+  * Gayathri Athreya on Thu, 4 Jun 2015 20:33:58 -0700 [View Commit](../../commit/c815a720344cb0ff4bfdf62f5aea4e20028040f6)
 
 ##rice-2.5.4.6-kckualico
 * No Changes
@@ -96,6 +116,43 @@
   * Gayathri on Thu, 9 Apr 2015 15:03:09 -0700 [View Commit](../../commit/ac7f7f10d76d54315eede9c3ceca0857db2563d7)
 
 ##rice-2.5.4.0-kckualico
+* No Changes
+
+
+##rice-2.5.3.1506.2-kckualico
+*  Modified parent annotation for action request to display people flow name.
+  * For the KRMS Agenda based routing approval stops, PPL Flow Member "Annotation" is still blank and does not display any PPL Flow info to user when they open the Future routing.
+
+  * Only the delegates, visible only once the show is expanded, have the PPL flow name included.
+
+  * PPL Flow Member Annotation field in Routing Log needs to show PPL Flow Name. User needs to be able to see PPL Flow names for each Pending Approval stop without expanding to display delegates.
+  * Gayathri on Fri, 29 May 2015 18:49:07 -0700 [View Commit](../../commit/e7cecb382163b727ae0e20ad0a3e6237f7fa7d83)
+
+##rice-2.5.3.1506.1-kckualico
+*  allow the jpa vendor adapter to be configured such that a java melody vendor adapter can be used if desired.
+  * Travis Schneeberger on Thu, 4 Jun 2015 15:53:25 -0400 [View Commit](../../commit/fd4f8b5c74610eb468748fae569c80fd0dfc9291)
+
+##rice-2.5.3.1505.17-kckualico
+*  enable quartz jobs to be monitored & extra statistics for ehcache with java melody
+  * Travis Schneberger on Fri, 29 May 2015 13:53:09 -0400 [View Commit](../../commit/822c2544d158f12875feaea2469eb68801b5cbb0)
+
+##rice-2.5.3.1505.16-kckualico
+* No Changes
+
+
+##rice-2.5.3.1505.15-kckualico
+*  FE issue - People Flow KRMS - Descriptors need to feed to PD Proposal Action>Route Log>Future Routing Requests details
+  * I think the issue here is that in Future actions, while people flow members' and delegates' names appear correctly in the PD Route Log, there is no field in PD route log that displays what Routing Agenda rule or which People Flow is associated with the required approval.
+  * Unit Administrators, Deans Office reviewers and OSP need to be able to easily identify the unit to which the proposal will route (or has routed, or is currently at the stop for).
+  * Possibly the easiest way for this to be done is to display the People Flow name, e.g. "151000 Biology All Proposals." in the Route Log, so users could see which approval group the stop is for.
+  * This would be consistent with how this routing information is displayed in Coeus Proposal Routing view.
+  * Gayathri on Wed, 27 May 2015 11:37:48 -0700 [View Commit](../../commit/54dd6c0b258c911979d183be1246dbc0a4ed880c)
+
+##rice-2.5.3.1505.14-kckualico
+* No Changes
+
+
+##rice-2.5.3.1505.13-kckualico
 * No Changes
 
 
