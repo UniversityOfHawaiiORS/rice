@@ -309,11 +309,13 @@
     <profile>
       <id>grm</id>
       <!-- comment out activation section to turn this profile off permanently-->
+<!-- UH Modification disable grm profile which only works for kualico
       <activation>
         <property>
           <name>!grm.off</name>
         </property>
       </activation>
+-->
 
       <properties>
         <scm.connection>scm:git:git://github.com/kualico/kc-rice.git</scm.connection>
