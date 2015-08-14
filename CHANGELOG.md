@@ -82,6 +82,31 @@
 *  Reject Enhancement
   * Control the reject action with permissions.
   * Gayathri Athreya on Thu, 4 Jun 2015 20:33:58 -0700 [View Commit](../../commit/c815a720344cb0ff4bfdf62f5aea4e20028040f6)
+* RESKC-397 People flow annotation display fix
+
+  * People flow annotation for route log was displaying null values or blank information, this corrects that behavior by showing Namespace and Name of people flow
+  * bsmith83 on Mon, 29 Jun 2015 15:38:53 -0700 [View Commit](../../commit/c4517d7b126779928322e37be8e9983fe5f68749)
+* fix to display number of items found on person lookupable
+  * Joe Williams on Thu, 2 Jul 2015 13:12:04 -0500 [View Commit](../../commit/43851e909ff82ff7563d904c08a51d633f581cd8)
+*  upgrading ojb to avoid concurrency issues under heavy load
+  * Travis Schneeberger on Tue, 7 Jul 2015 12:30:57 -0400 [View Commit](../../commit/b05230f782ecefa87ba0311c877b9b6c2a768a6d)
+*  Fixing role member fetch.
+  * "Proposal Creator" role is behaving like a Unit Hierarchy role with descend enabled in stead of Unit role sometimes.
+  * User with the "Unit" Proposal Creator role assigned at a unit that has children, has all the children listed in the
+  * PD "Lead Unit" drop down when Creating or Copying a proposal, even if they do not have the role assigned for the child units. User can select, create/copy and successfully save the new proposal.
+
+  * After testing I think this behavior is random. I assigned coiadmin to the Proposal Creator role with unit BL-BL and had access to ALL units not just its descendents. The behavior seems to be dependent on the other roles assigned to the user. This is because of how rice fetches role members when given a role id and user id.
+  * Gayathri Athreya on Thu, 9 Jul 2015 16:57:29 -0700 [View Commit](../../commit/049deab42684b58e0c73f1fb683f3ba64f085ec7)
+* Deleting the broken reloading data dictionary
+  * Travis Schneeberger on Thu, 16 Jul 2015 14:58:01 -0400 [View Commit](../../commit/d31dd4b7625beb447f0cc602db86413f23c38f3a)
+* Deleting the broken reloading data dictionary
+  * Travis Schneeberger on Thu, 16 Jul 2015 15:56:27 -0400 [View Commit](../../commit/d7d61acef4f3b1d9f28be8bc412c0850d9ae25ba)
+*  changing nexus config
+  * Travis Schneeberger on Fri, 17 Jul 2015 13:42:59 -0400 [View Commit](../../commit/6ef1a89951212c90bf484c3a23c1232c79cea9d0)
+* moving completely to bitronix. Removing xapool & jotm support
+  * Travis Schneeberger on Tue, 21 Jul 2015 13:23:21 -0400 [View Commit](../../commit/8fa0c7eca5a5f5b80d9ed8e217a80cf05e576aa4)
+*  on a lookup, if the type is a string but all the values are integral or decimal treat the table sort behavior as integral or decimal
+  * Travis Schneeberger on Wed, 22 Jul 2015 13:05:32 -0400 [View Commit](../../commit/36a59211aec6df59bae6b1e25669842164e09674)
 
 ##rice-2.5.4.6-kckualico
 * No Changes
@@ -118,6 +143,84 @@
 ##rice-2.5.4.0-kckualico
 * No Changes
 
+
+##rice-2.5.3.1507.16-kckualico
+* moving completely to bitronix. Removing xapool & jotm support
+  * Travis Schneeberger on Tue, 21 Jul 2015 13:23:21 -0400 [View Commit](../../commit/8fa0c7eca5a5f5b80d9ed8e217a80cf05e576aa4)
+
+##rice-2.5.3.1507.15-kckualico
+* No Changes
+
+
+##rice-2.5.3.1507.14-kckualico
+* No Changes
+
+
+##rice-2.5.3.1507.13-kckualico
+* No Changes
+
+
+##rice-2.5.3.1507.12-kckualico
+* No Changes
+
+
+##rice-2.5.3.1507.11-kckualico
+* No Changes
+
+
+##rice-2.5.3.1507.10-kckualico
+* No Changes
+
+
+##rice-2.5.3.1507.9-kckualico
+* No Changes
+
+
+##rice-2.5.3.1507.8-kckualico
+* No Changes
+
+
+##rice-2.5.3.1507.7-kckualico
+*  changing nexus config
+  * Travis Schneeberger on Fri, 17 Jul 2015 13:42:59 -0400 [View Commit](../../commit/6ef1a89951212c90bf484c3a23c1232c79cea9d0)
+
+##rice-2.5.3.1507.6-kckualico
+* No Changes
+
+
+##rice-2.5.3.1507.5-kckualico
+* Deleting the broken reloading data dictionary
+  * Travis Schneeberger on Thu, 16 Jul 2015 14:58:01 -0400 [View Commit](../../commit/d31dd4b7625beb447f0cc602db86413f23c38f3a)
+* Deleting the broken reloading data dictionary
+  * Travis Schneeberger on Thu, 16 Jul 2015 15:56:27 -0400 [View Commit](../../commit/d7d61acef4f3b1d9f28be8bc412c0850d9ae25ba)
+
+##rice-2.5.3.1507.4-kckualico
+*  Fixing role member fetch.
+  * "Proposal Creator" role is behaving like a Unit Hierarchy role with descend enabled in stead of Unit role sometimes.
+  * User with the "Unit" Proposal Creator role assigned at a unit that has children, has all the children listed in the
+  * PD "Lead Unit" drop down when Creating or Copying a proposal, even if they do not have the role assigned for the child units. User can select, create/copy and successfully save the new proposal.
+
+  * After testing I think this behavior is random. I assigned coiadmin to the Proposal Creator role with unit BL-BL and had access to ALL units not just its descendents. The behavior seems to be dependent on the other roles assigned to the user. This is because of how rice fetches role members when given a role id and user id.
+  * Gayathri Athreya on Thu, 9 Jul 2015 16:57:29 -0700 [View Commit](../../commit/049deab42684b58e0c73f1fb683f3ba64f085ec7)
+
+##rice-2.5.3.1507.3-kckualico
+*  upgrading ojb to avoid concurrency issues under heavy load
+  * Travis Schneeberger on Tue, 7 Jul 2015 12:30:57 -0400 [View Commit](../../commit/b05230f782ecefa87ba0311c877b9b6c2a768a6d)
+
+##rice-2.5.3.1507.2-kckualico
+* fix to display number of items found on person lookupable
+  * Joe Williams on Thu, 2 Jul 2015 13:12:04 -0500 [View Commit](../../commit/43851e909ff82ff7563d904c08a51d633f581cd8)
+
+##rice-2.5.3.1507.1-kckualico
+* RESKC-397 People flow annotation display fix
+
+  * People flow annotation for route log was displaying null values or blank information, this corrects that behavior by showing Namespace and Name of people flow
+  * bsmith83 on Mon, 29 Jun 2015 15:38:53 -0700 [View Commit](../../commit/c4517d7b126779928322e37be8e9983fe5f68749)
+
+##rice-2.5.3.1506.3-kckualico
+*  Reject Enhancement
+  * Control the reject action with permissions.
+  * Gayathri Athreya on Thu, 4 Jun 2015 20:33:58 -0700 [View Commit](../../commit/c815a720344cb0ff4bfdf62f5aea4e20028040f6)
 
 ##rice-2.5.3.1506.2-kckualico
 *  Modified parent annotation for action request to display people flow name.
