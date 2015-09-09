@@ -1,6 +1,40 @@
 
 
 ##CURRENT
+* fix dummy login page to not allow inactive users to log in
+
+  * Steps:
+
+  * 1.) edit quickstart person record and mark as inactive
+  * 2.) log in as quickstart
+  * 3.) try to do a proposal search get STE.
+
+  * Expected: quickstart shouldn't be able to log in when not active.
+
+  * Actual: quickstart is allowed to log in
+  * Joe Williams on Mon, 24 Aug 2015 13:51:27 -0500 [View Commit](../../commit/589c759f81b01da9d753f60858a35308d22de063)
+* fix json error when rendering data tables
+  * Joe Williams on Tue, 25 Aug 2015 12:16:05 -0500 [View Commit](../../commit/ee1fc1dc18da13280804479754cfd3645f7f1f86)
+* fix data table json string escaping
+  * Joe Williams on Wed, 26 Aug 2015 10:29:32 -0500 [View Commit](../../commit/049c5bd7f89c60c939db543a64ba8ebcd17afb89)
+
+##rice-1508.0005
+* return saved adhoc recipient when saving document to avoid sql exception with object id
+  * Joe Williams on Wed, 19 Aug 2015 10:37:36 -0500 [View Commit](../../commit/be92a50bc24329871c9922403c1fb9d2958ccdfb)
+
+##rice-1508.0004
+* No Changes
+
+
+##rice-1508.0003
+* No Changes
+
+
+##rice-1508.0002
+* No Changes
+
+
+##rice-1508.0001
 * switching to standard properties
   * Travis Schneberger on Fri, 17 Apr 2015 17:02:03 -0400 [View Commit](../../commit/04d595e166c5da88f123d68ef3f341eba2c998f1)
 * switching to standard properties
@@ -107,6 +141,12 @@
   * Travis Schneeberger on Tue, 21 Jul 2015 13:23:21 -0400 [View Commit](../../commit/8fa0c7eca5a5f5b80d9ed8e217a80cf05e576aa4)
 *  on a lookup, if the type is a string but all the values are integral or decimal treat the table sort behavior as integral or decimal
   * Travis Schneeberger on Wed, 22 Jul 2015 13:05:32 -0400 [View Commit](../../commit/36a59211aec6df59bae6b1e25669842164e09674)
+*  fixing several spring configuration issues.  Fixing lookup bean to be prototype as it should be.  Fixing MessageService bean name so that it doesn't conflict with the krad MessageService.  Fix the kualiMaintainable bean so it doesn't fail when requested.
+  * Travis Schneeberger on Tue, 4 Aug 2015 15:51:10 -0400 [View Commit](../../commit/9000b435a112c1a40d2add62837bf308aed3e6db)
+* KULRICE-14269 - JPA predicates cause unnecessary SQL joins and performance degradation
+  * Travis Schneeberger on Thu, 6 Aug 2015 10:13:52 -0400 [View Commit](../../commit/1ffe1444c8c329ef412ba2d34f443938bff586c3)
+*  if message parsing fails fallback to just displaying the message text.  This allows cases where the user input has krad special characters and confuses krad
+  * Travis Schneeberger on Thu, 6 Aug 2015 11:41:55 -0400 [View Commit](../../commit/d3e62878859eeae45f2242cf516c8077a4e3d833)
 
 ##rice-2.5.4.6-kckualico
 * No Changes
@@ -143,6 +183,54 @@
 ##rice-2.5.4.0-kckualico
 * No Changes
 
+
+##rice-2.5.3.1508.3-kckualico
+*  if message parsing fails fallback to just displaying the message text.  This allows cases where the user input has krad special characters and confuses krad
+  * Travis Schneeberger on Thu, 6 Aug 2015 11:41:55 -0400 [View Commit](../../commit/d3e62878859eeae45f2242cf516c8077a4e3d833)
+
+##rice-2.5.3.1508.2-kckualico
+* KULRICE-14269 - JPA predicates cause unnecessary SQL joins and performance degradation
+  * Travis Schneeberger on Thu, 6 Aug 2015 10:13:52 -0400 [View Commit](../../commit/1ffe1444c8c329ef412ba2d34f443938bff586c3)
+
+##rice-2.5.3.1508.1-kckualico
+* No Changes
+
+
+##rice-2.5.3.1508.0009-kualico
+* fix json error when rendering data tables
+  * Joe Williams on Tue, 25 Aug 2015 12:16:05 -0500 [View Commit](../../commit/ee1fc1dc18da13280804479754cfd3645f7f1f86)
+
+##rice-2.5.3.1508.0008-kualico
+* fix dummy login page to not allow inactive users to log in
+
+  * Steps:
+
+  * 1.) edit quickstart person record and mark as inactive
+  * 2.) log in as quickstart
+  * 3.) try to do a proposal search get STE.
+
+  * Expected: quickstart shouldn't be able to log in when not active.
+
+  * Actual: quickstart is allowed to log in
+  * Joe Williams on Mon, 24 Aug 2015 13:51:27 -0500 [View Commit](../../commit/589c759f81b01da9d753f60858a35308d22de063)
+
+##rice-2.5.3.1508.0007-kualico
+* No Changes
+
+
+##rice-2.5.3.1508.0006-kualico
+*  fixing several spring configuration issues.  Fixing lookup bean to be prototype as it should be.  Fixing MessageService bean name so that it doesn't conflict with the krad MessageService.  Fix the kualiMaintainable bean so it doesn't fail when requested.
+  * Travis Schneeberger on Tue, 4 Aug 2015 15:51:10 -0400 [View Commit](../../commit/9000b435a112c1a40d2add62837bf308aed3e6db)
+* KULRICE-14269 - JPA predicates cause unnecessary SQL joins and performance degradation
+  * Travis Schneeberger on Thu, 6 Aug 2015 10:13:52 -0400 [View Commit](../../commit/1ffe1444c8c329ef412ba2d34f443938bff586c3)
+*  if message parsing fails fallback to just displaying the message text.  This allows cases where the user input has krad special characters and confuses krad
+  * Travis Schneeberger on Thu, 6 Aug 2015 11:41:55 -0400 [View Commit](../../commit/d3e62878859eeae45f2242cf516c8077a4e3d833)
+* return saved adhoc recipient when saving document to avoid sql exception with object id
+  * Joe Williams on Wed, 19 Aug 2015 10:37:36 -0500 [View Commit](../../commit/be92a50bc24329871c9922403c1fb9d2958ccdfb)
+
+##rice-2.5.3.1507.17-kckualico
+*  on a lookup, if the type is a string but all the values are integral or decimal treat the table sort behavior as integral or decimal
+  * Travis Schneeberger on Wed, 22 Jul 2015 13:05:32 -0400 [View Commit](../../commit/36a59211aec6df59bae6b1e25669842164e09674)
 
 ##rice-2.5.3.1507.16-kckualico
 * moving completely to bitronix. Removing xapool & jotm support
