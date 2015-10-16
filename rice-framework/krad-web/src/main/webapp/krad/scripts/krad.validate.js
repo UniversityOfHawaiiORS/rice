@@ -38,6 +38,11 @@ function getValidationData(jqComponent, isGroup) {
         defaults = {};
     }
 
+    // KC-1289 Pages with nested groupings have confusing messages during validation
+    //         Just hack this feature to turn it off by always using the fieldValidataionDefaults
+    //         Instead of the groupValidationDefaults.  We don't need this feature anyway.
+    defaults = fieldValidationDefaults;
+
     // merge defaults into data if it exists, otherwise defaults are the data
     if (data) {
         data = jQuery.extend({}, defaults, data);
