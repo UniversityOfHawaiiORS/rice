@@ -24,13 +24,13 @@
   <parent>
     <groupId>org.kuali.rice</groupId>
     <artifactId>rice</artifactId>
-   <version>2.5.3.1509.0003-kualico-SNAPSHOT</version>
+   <version>2.5.3.1512.0005-kualico-SNAPSHOT</version>
   </parent>
   <artifactId>rice-development-tools</artifactId>
   <properties>
     <generateReports>false</generateReports>
-    <codemodel.version>2.4.1</codemodel.version>
-    <javaparser.version>1.0.9</javaparser.version>
+    <codemodel.version>2.6</codemodel.version>
+    <javaparser.version>1.0.11</javaparser.version>
     <db-ojb.version>1.0.4-patch9</db-ojb.version>
   </properties>
   <dependencies>
