@@ -1,6 +1,46 @@
 
 
 ##CURRENT
+* Person Search missing results when search by last name"
+
+  * This reverts commit f9e9e94f658a7972dc944a8bda99501bb7804f16.
+  * Gayathri Athreya on Thu, 10 Dec 2015 15:21:30 -0700 [View Commit](../../commit/144446d95f3e7b9edb115c9e9e707ec3b0977855)
+*  Making some methods public in order to override.
+  * Gayathri Athreya on Wed, 9 Dec 2015 15:22:29 -0700 [View Commit](../../commit/123f33d5de2946f3c8f29e23afa1d5f427fccd4d)
+*  make remote user check case insensitive
+  * Joe Williams on Wed, 9 Dec 2015 15:52:32 -0600 [View Commit](../../commit/abd21a04958ff599b69ff949186e97e6e978371b)
+* Person Search missing results when search by last name
+  * PD Issue:
+  * User created proposal.
+  * On Key Personnel screen selected Add Person and searched for Employee with only search criteria of Last Name "Hill"
+  * The results returned 13 Hills but none are Christopher N. Hill who has an active person record in KC. He is a principle research scientist for EAPS she needs to add to proposal.
+  * User then searched with first name "C*" and got Christopher N Hill as well as another Christopher Hill not on original result list.
+  * Desired Results:
+  * Search results should include ALL persons with last name of "Hill" in list of results.
+  * IRB issue:
+  * RT ticket: 3318837 - IRB office user M. Koehane in IRB using "Person Training" and then Person Search for last name of Shapiro in last name field
+  * Result: Stephanie Shapiro does not appear in list.
+  * KC support tried same with Active Indicator = Both and same results - no Stephanie Shapiro
+  * Repeat search with both first and last name > results return with Stephanie Shapiro.
+  * Desired Results:
+  * Search results should include ALL persons with last name only.
+  * Person search is linked to various tables.
+  * One of them - affiliations has multiple records where only one is active. This is causing issue as the query is returning multiple results for the same person based on number of records available in affiliation and the search limit settings is limiting the count.
+  * We now have incorrect result displayed.
+  * The fix is to turn on the active indicator for affiliations.
+  * rmancher on Tue, 8 Dec 2015 12:42:33 -0500 [View Commit](../../commit/f9e9e94f658a7972dc944a8bda99501bb7804f16)
+*  fix NullPointerException in derived User role
+  * Travis Schneeberger on Mon, 19 Oct 2015 09:10:50 -0400 [View Commit](../../commit/49b187f55ba190b959fb2f1d4094c02cb5d3c334)
+* Fix user filter problem when remote user is configured as principal id
+  * blackcathacker on Thu, 15 Oct 2015 11:35:46 -0700 [View Commit](../../commit/e129b6500afd3946fccd14e9f33ce65d5eb44a82)
+* Refactor of UserLoginFilter to facilitate overrides for Core Auth Service
+  * blackcathacker on Fri, 9 Oct 2015 10:16:56 -0700 [View Commit](../../commit/e89f6ad541e004ed60f5472f2dc58d9df5866804)
+* Add KRMS comparison service for general date fields
+  * blackcathacker on Thu, 8 Oct 2015 10:56:04 -0700 [View Commit](../../commit/889f9581392ed653883d02046deb08a18d8e41dc)
+* closing the inputstream in a finally block.  This avoids a resource leak which can be important with some stream types.
+  * Travis Schneeberger on Sun, 4 Oct 2015 17:33:27 -0400 [View Commit](../../commit/dafd94cf0194170a54a37ade0cbff0c0f28a1561)
+*  Adding support for Canadian provinces.
+  * Gayathri Athreya on Fri, 25 Sep 2015 19:48:09 -0700 [View Commit](../../commit/c1b5d969b814985d01d5e2127225a4739b0c0b7b)
 * Enable KEW annotations for KRMS peopleflow role requests
 
   * When KRMS action triggers peopleflow routing, role members of the peopleflow have no annotations next to them describing the details for why the users were added into workflow. This adds an annotation for role based peopleflow members such that workflow requests now include something similar to "Role: KC-PD Investigators from Peopleflow Name: Proposal Development Standard Workflow"
@@ -191,6 +231,78 @@
 ##rice-2.5.4.0-kckualico
 * No Changes
 
+
+##rice-2.5.3.1512.0003-kualico
+*  Making some methods public in order to override.
+  * Gayathri Athreya on Wed, 9 Dec 2015 15:22:29 -0700 [View Commit](../../commit/123f33d5de2946f3c8f29e23afa1d5f427fccd4d)
+
+##rice-2.5.3.1512.0002-kualico
+*  make remote user check case insensitive
+  * Joe Williams on Wed, 9 Dec 2015 15:52:32 -0600 [View Commit](../../commit/abd21a04958ff599b69ff949186e97e6e978371b)
+
+##rice-2.5.3.1512.0001-kualico
+* Person Search missing results when search by last name
+  * PD Issue:
+  * User created proposal.
+  * On Key Personnel screen selected Add Person and searched for Employee with only search criteria of Last Name "Hill"
+  * The results returned 13 Hills but none are Christopher N. Hill who has an active person record in KC. He is a principle research scientist for EAPS she needs to add to proposal.
+  * User then searched with first name "C*" and got Christopher N Hill as well as another Christopher Hill not on original result list.
+  * Desired Results:
+  * Search results should include ALL persons with last name of "Hill" in list of results.
+  * IRB issue:
+  * RT ticket: 3318837 - IRB office user M. Koehane in IRB using "Person Training" and then Person Search for last name of Shapiro in last name field
+  * Result: Stephanie Shapiro does not appear in list.
+  * KC support tried same with Active Indicator = Both and same results - no Stephanie Shapiro
+  * Repeat search with both first and last name > results return with Stephanie Shapiro.
+  * Desired Results:
+  * Search results should include ALL persons with last name only.
+  * Person search is linked to various tables.
+  * One of them - affiliations has multiple records where only one is active. This is causing issue as the query is returning multiple results for the same person based on number of records available in affiliation and the search limit settings is limiting the count.
+  * We now have incorrect result displayed.
+  * The fix is to turn on the active indicator for affiliations.
+  * rmancher on Tue, 8 Dec 2015 12:42:33 -0500 [View Commit](../../commit/f9e9e94f658a7972dc944a8bda99501bb7804f16)
+
+##rice-2.5.3.1511.0003-kualico
+* No Changes
+
+
+##rice-2.5.3.1511.0002-kualico
+* No Changes
+
+
+##rice-2.5.3.1511.0001-kualico
+* No Changes
+
+
+##rice-2.5.3.1510.0005-kualico
+*  fix NullPointerException in derived User role
+  * Travis Schneeberger on Mon, 19 Oct 2015 09:10:50 -0400 [View Commit](../../commit/49b187f55ba190b959fb2f1d4094c02cb5d3c334)
+
+##rice-2.5.3.1510.0004-kualico
+* Fix user filter problem when remote user is configured as principal id
+  * blackcathacker on Thu, 15 Oct 2015 11:35:46 -0700 [View Commit](../../commit/e129b6500afd3946fccd14e9f33ce65d5eb44a82)
+
+##rice-2.5.3.1510.0003-kualico
+* Refactor of UserLoginFilter to facilitate overrides for Core Auth Service
+  * blackcathacker on Fri, 9 Oct 2015 10:16:56 -0700 [View Commit](../../commit/e89f6ad541e004ed60f5472f2dc58d9df5866804)
+
+##rice-2.5.3.1510.0002-kualico
+* Add KRMS comparison service for general date fields
+  * blackcathacker on Thu, 8 Oct 2015 10:56:04 -0700 [View Commit](../../commit/889f9581392ed653883d02046deb08a18d8e41dc)
+
+##rice-2.5.3.1510.0001-kualico
+* closing the inputstream in a finally block.  This avoids a resource leak which can be important with some stream types.
+  * Travis Schneeberger on Sun, 4 Oct 2015 17:33:27 -0400 [View Commit](../../commit/dafd94cf0194170a54a37ade0cbff0c0f28a1561)
+
+##rice-2.5.3.1509.0003-kualico
+*  Adding support for Canadian provinces.
+  * Gayathri Athreya on Fri, 25 Sep 2015 19:48:09 -0700 [View Commit](../../commit/c1b5d969b814985d01d5e2127225a4739b0c0b7b)
+
+##rice-2.5.3.1509.0002-kualico
+* Enable KEW annotations for KRMS peopleflow role requests
+
+  * When KRMS action triggers peopleflow routing, role members of the peopleflow have no annotations next to them describing the details for why the users were added into workflow. This adds an annotation for role based peopleflow members such that workflow requests now include something similar to "Role: KC-PD Investigators from Peopleflow Name: Proposal Development Standard Workflow"
+  * blackcathacker on Tue, 22 Sep 2015 18:51:53 -0700 [View Commit](../../commit/59e90ea237a08608833dcc97854f35fdc3096e85)
 
 ##rice-2.5.3.1509.0001-kualico
 * allowing btm log location, transaction timeout via configuration
