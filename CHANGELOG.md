@@ -1,6 +1,20 @@
 
 
 ##CURRENT
+* RICE-43 - fixed a number of CSS issues and moved to the "kuali" version of fancybox
+  * Eric Westfall on Sun, 25 Sep 2016 23:34:20 -0400 [View Commit](../../commit/ecb5da07d1c67c5fda4319955d4599931e1aa5d3)
+* RICE-43 - added an "isOpen()" method to fancybox
+  * Eric Westfall on Thu, 15 Sep 2016 01:53:44 -0400 [View Commit](../../commit/6de457cb039121bca209aac39fb7976fcb2581c1)
+* RICE-43 - working on downgrading fancybox to the version which is MIT licensed
+  * Eric Westfall on Wed, 14 Sep 2016 01:03:14 -0400 [View Commit](../../commit/a6426bfd95996acf56d3f4c78fc93c3e0c4abf49)
+* RESKC-1566:Fix various issues with the KRAD incident report page (#109)
+
+  * Douglas Pace on Thu, 1 Sep 2016 12:05:39 -0700 [View Commit](../../commit/d0713d8b6103013ef199fb6ee3e3a304e6fa5c48)
+* RESKC-1596:Allow users to select derived role types when creating roles (#108)
+
+  * Douglas Pace on Tue, 23 Aug 2016 10:57:44 -0700 [View Commit](../../commit/0c6d195ebb3e438efc91b58521e5cf962dafc259)
+* RESKC-1502: support Data Dictionary overrides
+  * Travis Schneeberger on Thu, 18 Aug 2016 15:41:07 -0400 [View Commit](../../commit/c4c022a6dcc9ed3a95f97a293f1f243a6ff52d83)
 * Ported XSS, CSRF security fixes and upgraded commons-fileupload
   * Eric Westfall on Wed, 27 Jul 2016 23:10:35 -0400 [View Commit](../../commit/800ef060c450eaa5d52fbea61733df974a61bf8b)
 * RESKC-1235:Misc fixes to backlocation security fix for RES
@@ -272,6 +286,36 @@
   * Gayathri on Thu, 9 Apr 2015 15:03:09 -0700 [View Commit](../../commit/ac7f7f10d76d54315eede9c3ceca0857db2563d7)
 
 ##rice-2.5.4.0-kckualico
+* No Changes
+
+
+##rice-2.5.3.1609.0003-kualico
+* No Changes
+
+
+##rice-2.5.3.1609.0002-kualico
+* RICE-43 - fixed a number of CSS issues and moved to the "kuali" version of fancybox
+  * Eric Westfall on Sun, 25 Sep 2016 23:34:20 -0400 [View Commit](../../commit/ecb5da07d1c67c5fda4319955d4599931e1aa5d3)
+* RICE-43 - added an "isOpen()" method to fancybox
+  * Eric Westfall on Thu, 15 Sep 2016 01:53:44 -0400 [View Commit](../../commit/6de457cb039121bca209aac39fb7976fcb2581c1)
+* RICE-43 - working on downgrading fancybox to the version which is MIT licensed
+  * Eric Westfall on Wed, 14 Sep 2016 01:03:14 -0400 [View Commit](../../commit/a6426bfd95996acf56d3f4c78fc93c3e0c4abf49)
+
+##rice-2.5.3.1609.0001-kualico
+* RESKC-1566:Fix various issues with the KRAD incident report page (#109)
+
+  * Douglas Pace on Thu, 1 Sep 2016 12:05:39 -0700 [View Commit](../../commit/d0713d8b6103013ef199fb6ee3e3a304e6fa5c48)
+
+##rice-2.5.3.1608.0006-kualico
+* RESKC-1596:Allow users to select derived role types when creating roles (#108)
+
+  * Douglas Pace on Tue, 23 Aug 2016 10:57:44 -0700 [View Commit](../../commit/0c6d195ebb3e438efc91b58521e5cf962dafc259)
+
+##rice-2.5.3.1608.0005-kualico
+* RESKC-1502: support Data Dictionary overrides
+  * Travis Schneeberger on Thu, 18 Aug 2016 15:41:07 -0400 [View Commit](../../commit/c4c022a6dcc9ed3a95f97a293f1f243a6ff52d83)
+
+##rice-2.5.3.1608.0004-kualico
 * No Changes
 
 
