@@ -20,16 +20,13 @@
   <parent>
     <groupId>org.kuali.rice</groupId>
     <artifactId>rice</artifactId>
-   <version>2.5.3.1609.0005-kualico-SNAPSHOT</version>
+   <version>2.5.3.1612.0004-kualico-SNAPSHOT</version>
   </parent>
   <artifactId>rice-dist</artifactId>
   <packaging>pom</packaging>
   <name>Rice Distributions</name>
   <properties>
     <kuali.testjar.phase>none</kuali.testjar.phase>
-    <gmaven.stubs.phase>none</gmaven.stubs.phase>
-    <gmaven.compile.phase>none</gmaven.compile.phase>
-    <gmaven.test.compile.phase>none</gmaven.test.compile.phase>
     <maven.test.skip>true</maven.test.skip>
     <enforcer.phase>none</enforcer.phase>
     <failsafe.phase>none</failsafe.phase>
